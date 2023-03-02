@@ -21,7 +21,7 @@ def insert_brevet(brevet_dist, start_time, control_dist):
 
 def get_brevet():
     #db.find_one
-    lists = collection.find_one().sort("_id", -1).limit(1)
+    lists = collection.find().sort("_id", -1).limit(1)
     
     for ls in lists:
 
