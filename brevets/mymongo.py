@@ -13,7 +13,7 @@ def insert_brevet(brevet_dist, start_time, control_dist):
         "brevet_dist": brevet_dist,
         "start_time": start_time,
         "control_dist": control_dist})
-    _id = res.insert_id
+    _id = res.inserted_id
     
     return str(_id)
 
