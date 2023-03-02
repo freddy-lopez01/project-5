@@ -6,6 +6,7 @@ Replacement for RUSA ACP brevet time calculator
 
 import flask
 from flask import request
+from mymongo import insert_brevet, get_brevet
 import arrow  # Replacement for datetime, based on moment.js
 import acp_times  # Brevet time calculations
 import config
@@ -42,6 +43,75 @@ def page_not_found(error):
 #   These return JSON, rather than rendering pages.
 #
 ###############
+#two more app routes
+@app.route("/insert", methods=["POST"])
+def insert():
+    """
+    /insert : inserts a to-do list into the database.
+
+    Accepts POST requests ONLY!
+
+    JSON interface: gets JSON, responds with JSON
+    """
+    #taken from todolist 
+    try:
+        # Read the entire request body as a JSON
+        # This will fail if the request body is NOT a JSON.
+        input_json = request.json
+        # if successful, input_json is automatically parsed into a python dictionary!
+        
+        # Because input_json is a dictionary, we can do this:
+        brevet_dist = input_json["brevet_dist"] # 
+        brevet_start_time = input_json["brevet_start_time"] # 
+        control_brevets = input_json["control_brevets"]
+
+        brev_list = insert_brevet(brevet_dist, brevet_start_time, control_brevets)
+
+        return flask.jsonify(result={},
+                        message="Inserted!", 
+                        status=1, # This is defined by you. You just read this value in your javascript.
+                        mongo_id=todo_id)
+    except:
+        # The reason for the try and except is to ensure Flask responds with a JSON.
+        # If Flask catches your error, it means you didn't catch it yourself,
+        # And Flask, by default, returns the error in an HTML.
+        # We want /insert to respond with a JSON no matter what!
+        return flask.jsonify(result={},
+                        message="Oh no! Server error!", 
+                        status=0, 
+                        mongo_id='None')
+
+
+
+
+@app.route("/fetch")
+def fetch():
+    """
+    /fetch : fetches the newest to-do list from the database.
+
+    Accepts GET requests ONLY!
+
+    JSON interface: gets JSON, responds with JSON
+    """
+
+    #Taken from Todolist 
+    try:
+        brevet_dist, start_time = get_brevet()
+        return flask.jsonify(
+                result={"brevet_dist": brevet_dist, "start_time": start_time, "control_dist": control_dist}, 
+                status=1,
+                message="Successfully fetched brevet list!")
+    except:
+        return flask.jsonify(
+                result={}, 
+                status=0,
+                message="Something went wrong, couldn't fetch any brevets!")
+
+
+
+
+
+
 @app.route("/_calc_times")
 def _calc_times():
     """
