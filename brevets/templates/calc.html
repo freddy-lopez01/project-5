@@ -184,9 +184,8 @@
                                "open_time": open_time,
                                "close_time": close_time
                             })
-                         } else{
-                            console.log("Insert failed")
                          }
+                      });
 
                          // Construct the data we will be sending Flask
                         var brev_list = {
@@ -233,8 +232,6 @@
                           error: function(err){
                            console.log("Error: ", err); }
                         });
-
-                     });
 
                    });
 
