@@ -49,7 +49,6 @@
          {% endif %}
          {% endwith %}
          <!-- Design on bootstrap grid -->
-         <form role="form">
             <div class="row">
                <div class="col-md-4">
                   <label>Distance</label>
@@ -114,7 +113,6 @@
                <!-- col -->
             </div>
             <!-- row -->
-         </form>
          <script type="text/javascript">
             var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
             var TIME_CALC_URL = SCRIPT_ROOT + "/_calc_times";
