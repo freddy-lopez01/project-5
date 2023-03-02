@@ -162,9 +162,9 @@
                       event.preventDefault();
                       console.log("Inserting data to Database");
                       // data that dosnt very per whole brevet
-                      var brevet_dist = document.getElementsByName("distance");
-                      var brevet_start_time = document.getElementsByName("begin_date")
-                      control_brevets = [];
+                      var brevet_dist = document.getElementById("brevet_dist_km").value;
+                      var brevet_start_time = document.getElementById("begin_date").value;
+                      var control_brevets = [];
 
                       $(".control").each(function(){
                          console.log("Reading info from page");
@@ -177,13 +177,14 @@
                            // if km isnt empty then continue to push data to the database 
                          if (km){
                             console.log("checking if km value is not empty");
-                            control_brevets.push({
+                            items_json = {
                                "km": km, 
                                "miles": miles, 
                                "location": location,
                                "open_time": open_time,
                                "close_time": close_time
-                            })
+                            }
+                            control_brevets.push(items_json);
                          }
                       });
 
@@ -257,14 +258,14 @@
                            if(data.status ==1){
                               $("input[name='brevet_dist']").val(data.result.brevet_dist);
                               $("input[name='begin_date']").val(data.result.brevet_start_time);
-                              var control = data.result.control_brevets;
+                              var control = data.result.control_dist;
                               var num_control_brev = control.length;
 
 
                               $('.control').each(function(index) {
                                       var litem = $(this); // This is our row
                                       // Clear existing values
-                                      litem.find("input[name='km']").val('');
+                                      litem.find("input[name='km]").val('');
                                       litem.find("input[name='miles']").val('');
                                       litem.find("input[name='location']").val('');
                                       litem.find("input[name='open']").val('');
@@ -273,13 +274,13 @@
 
                                       // Check if we're already done?
                                       if (index < num_control_brev) {
-                                          litem.find("input[name='brevet_dist']").val(items[index].brevet_dist);
-                                          litem.find("input[name='begin_date']").val(items[index].brevet_start_time);
-                                          litem.find("input[name='km']").val(items[index].km);
-                                          litem.find("input[name='miles']").val(items[index].miles);
-                                          litem.find("input[name='location']").val(items[index].location);
-                                          litem.find("input[name='open']").val(items[index].open_time);
-                                          litem.find("input[name='close']").val(items[index].close_time);
+                                          //litem.find("input[name='brevet_dist']").val(items[index].brevet_dist);
+                                          //litem.find("input[name='begin_date']").val(items[index].brevet_start_time);
+                                          litem.find("input[name='km']").val(control[index].km);
+                                          litem.find("input[name='miles']").val(control[index].miles);
+                                          litem.find("input[name='location']").val(control[index].location);
+                                          litem.find("input[name='open']").val(control[index].open_time);
+                                          litem.find("input[name='close']").val(control[index].close_time);
                                       }
                                   });
                            }

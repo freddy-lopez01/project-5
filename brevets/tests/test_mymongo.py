@@ -35,4 +35,18 @@ def mymongo_test_insert():
     assert isinstance(brevet_insert_id, str) and len(brevet_insert_id) > 0 
 
 def mymondo_test_fetch():
-    pass
+    start_time = arrow.get("2023-02-17 00:00", "YYYY-MM-DD HH:mm")
+    distance = 200
+    checkpoints = [
+        {"miles": 0, "km":0, "open":str(start_time), "close": str(start_time.shift(hours = 1)), "location": "start"},
+        {"miles": 31.0686, "km":50, "open": str(start_time.shift(hours= 1, minutes=28), "close":start_time.shift(hours = 3, minutes= 30)), "location": "control1"},
+        {"miles": 62.1371, "km":100, "open": str(start_time.shift(hours= 2, minutes=56), "close":start_time.shift(hours = 6, minutes= 40)), "location": "control2"},
+        {"miles": 93.2057, "km":150, "open": str(start_time.shift(hours= 4, minutes=25), "close":start_time.shift(hours = 10, minutes= 0)), "location": "control3"},
+        {"miles": 124.274, "km":200, "open": str(start_time.shift(hours= 5, minutes=53), "close":start_time.shift(hours = 13, minutes= 30)), "location": "control4"},        
+        
+        #have to call insert brevet
+        insert_brevet(str(start_time), distance, checkpoints)
+        #assert that each indice of data returned has the same info that we passed into the database 
+        assert get_brevet()[0] == str(start_time)
+        assert get_brevet()[1] == distance
+        assert get_brevet()[2] == checkpoints
