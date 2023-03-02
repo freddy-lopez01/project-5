@@ -70,7 +70,7 @@ def insert():
         return flask.jsonify(result={},
                         message="Inserted!", 
                         status=1, # This is defined by you. You just read this value in your javascript.
-                        mongo_id=todo_id)
+                        mongo_id=brev_list)
     except:
         # The reason for the try and except is to ensure Flask responds with a JSON.
         # If Flask catches your error, it means you didn't catch it yourself,

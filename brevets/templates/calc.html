@@ -258,14 +258,33 @@
                         function(data) {
                            console.log(data);
                            if(data.status ==1){
-                              var brevet_dist = $("input[name='brevet_dist']").val(data.result.brevet_dist);
-                              var brevet_start_time = $("input[name='brevet_start_time']").val(data.result.brevet_start_time);
+                              $("input[name='brevet_dist']").val(data.result.brevet_dist);
+                              $("input[name='begin_date']").val(data.result.brevet_start_time);
+                              var control = data.result.control_brevets;
+                              var num_control_brev = control.length;
 
-                              var km = $("input[name='km']").val(data.result.km);
-                              var miles = $("input[name='miles']").val(data.result.miles);
-                              var location = $("input[name='location']").val(data.result.location);
-                              var open_time = curr_val.find("input[name='open']").val();
-                              var close_time = curr_val.find("input[name='close']").val(); 
+
+                              $('.control').each(function(index) {
+                                      var litem = $(this); // This is our row
+                                      // Clear existing values
+                                      litem.find("input[name='km']").val('');
+                                      litem.find("input[name='miles']").val('');
+                                      litem.find("input[name='location']").val('');
+                                      litem.find("input[name='open']").val('');
+                                      litem.find("input[name='close']").val('');
+
+
+                                      // Check if we're already done?
+                                      if (index < num_control_brev) {
+                                          litem.find("input[name='brevet_dist']").val(items[index].brevet_dist);
+                                          litem.find("input[name='begin_date']").val(items[index].brevet_start_time);
+                                          litem.find("input[name='km']").val(items[index].km);
+                                          litem.find("input[name='miles']").val(items[index].miles);
+                                          litem.find("input[name='location']").val(items[index].location);
+                                          litem.find("input[name='open']").val(items[index].open_time);
+                                          litem.find("input[name='close']").val(items[index].close_time);
+                                      }
+                                  });
                            }
    
                          }
@@ -276,15 +295,6 @@
                         console.log(err);
                         });
                      // For each row in the HTML table
-                     $('.control').each(function(index){
-                        var brev_item = $(this); //This is our row
-
-
-                        // I have pushed this repo without finishing this step but I will resubmit once I figure it out for a regrade
-                        // if possible. Im still struggling with this javascript unfortunatley
-
-
-                     });
                    });
 
 
