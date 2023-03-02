@@ -84,19 +84,12 @@ def fetch():
     JSON interface: gets JSON, responds with JSON
     """
 
-    #Taken from Todolist 
-    try:
-        brevet_dist, start_time = get_brevet()
-        return flask.jsonify(
-                result={"brevet_dist": brevet_dist, "start_time": start_time, "control_dist": control_dist}, 
-                status=1,
-                message="Successfully fetched brevet list!")
-    except:
-        return flask.jsonify(
-                result={}, 
-                status=0,
-                message="Something went wrong, couldn't fetch any brevets!")
-
+    #Taken from Todolist
+    brevet_dist, start_time, control_dist = get_brevet()
+    return flask.jsonify(
+            result={"brevet_dist": brevet_dist, "start_time": start_time, "control_dist": control_dist}, 
+            status=1,
+            message="Successfully fetched brevet list!")
 
 
 
