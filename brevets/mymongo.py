@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import os 
 
-client = MongoClient('mongodb://' + os.enviorn["MONGODB_HOSTNAME"], 27017)
+client = MongoClient('mongodb://' + os.environ["MONGODB_HOSTNAME"], 27017)
 
 db = client.mydb
 

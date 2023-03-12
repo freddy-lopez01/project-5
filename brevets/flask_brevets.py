@@ -58,13 +58,15 @@ def insert():
     # This will fail if the request body is NOT a JSON.
     input_json = request.json
     # if successful, input_json is automatically parsed into a python dictionary!
-    
+    app.logger.debug('Received a request to insert a brevet')
+    app.logger.debug(f'Request JSON: {request.get_json()}') 
     # Because input_json is a dictionary, we can do this:
     brevet_dist = input_json["brevet_dist"] # 
     brevet_start_time = input_json["brevet_start_time"] # 
     control_brevets = input_json["control_brevets"]
 
     brev_list = insert_brevet(brevet_dist, brevet_start_time, control_brevets)
+    app.logger.debug(f'Response JSON: {{"result": {{}}, "message": "Inserted!", "status": 1, "mongo_id": {brevets}}}')
 
     return flask.jsonify(result={},
                     message="Inserted!", 
@@ -85,9 +87,9 @@ def fetch():
     """
 
     #Taken from Todolist
-    brevet_dist, start_time, control_dist = get_brevet()
+    brevet_dist, brevet_start_time, control_brevets = get_brevet()
     return flask.jsonify(
-            result={"brevet_dist": brevet_dist, "start_time": start_time, "control_dist": control_dist}, 
+            result={"brevet_dist": brevet_dist, "brevet_start_time": brevet_start_time, "control_dist": control_brevets}, 
             status=1,
             message="Successfully fetched brevet list!")
 
