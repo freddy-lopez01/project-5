@@ -256,7 +256,7 @@
                         function(data) {
                            console.log(data);
                            if(data.status ==1){
-                              $("input[name='brevet_dist']").val(data.result.brevet_dist);
+                              $("select[name='distance']").val(data.result.brevet_dist);
                               $("input[name='begin_date']").val(data.result.brevet_start_time);
                               var control = data.result.control_dist;
                               var num_control_brev = control.length;

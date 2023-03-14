@@ -66,7 +66,7 @@ def insert():
     control_brevets = input_json["control_brevets"]
 
     brev_list = insert_brevet(brevet_dist, brevet_start_time, control_brevets)
-    app.logger.debug(f'Response JSON: {{"result": {{}}, "message": "Inserted!", "status": 1, "mongo_id": {brevets}}}')
+    app.logger.debug(f'Response JSON: {{"result": {{}}, "message": "Inserted!", "status": 1, "mongo_id": {brev_list}}}')
 
     return flask.jsonify(result={},
                     message="Inserted!", 
