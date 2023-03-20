@@ -1,5 +1,5 @@
+import os
 from pymongo import MongoClient
-import os 
 
 client = MongoClient('mongodb://' + os.environ["MONGODB_HOSTNAME"], 27017)
 
